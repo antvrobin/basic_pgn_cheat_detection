@@ -309,6 +309,35 @@ class ChessAnalysisApp {
         const avgCpLoss = metrics.avg_centipawn_loss || 0;
         const totalMoves = metrics.total_moves || 0;
         const blunderCount = metrics.blunder_count || 0;
+        const timeConsistency = metrics.time_consistency_score || 0; // 0 to 1, higher means uniform
+
+        // Determine if game is bullet (< =60s base time)
+        let considerTimingRisk = true;
+        const timeControlHeader = (this.currentAnalysis?.game_info?.time_control || '').trim();
+        if (timeControlHeader) {
+            let baseSeconds = 0;
+            if (timeControlHeader.includes('+')) {
+                const base = parseInt(timeControlHeader.split('+')[0], 10);
+                if (!isNaN(base)) baseSeconds = base;
+            } else {
+                const base = parseInt(timeControlHeader, 10);
+                if (!isNaN(base)) baseSeconds = base;
+            }
+            if (baseSeconds <= 60) {
+                considerTimingRisk = false; // ignore for bullet or 1-minute games
+            }
+        }
+
+        // Timing consistency (20% weight)
+        if (considerTimingRisk) {
+            if (timeConsistency >= 0.9 && totalMoves > 20) {
+                riskScore += 20;
+                factors.push('Extremely consistent move times');
+            } else if (timeConsistency >= 0.8) {
+                riskScore += 10;
+                factors.push('Very consistent move times');
+            }
+        }
 
         // Engine matching (40% weight)
         if (bestMoveRate >= 80) {

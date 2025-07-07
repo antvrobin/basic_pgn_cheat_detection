@@ -86,6 +86,25 @@
       </div>
     </div>
 
+    <!-- Timing Consistency Detection -->
+    <div class="col-12">
+      <div class="about-card">
+        <h3>Timing Consistency Detection</h3>
+        <p>
+            The system computes a <em>time-consistency score</em> &mdash; essentially the
+            coefficient&nbsp;of&nbsp;variation of a player&rsquo;s move times. Human thinking
+            usually shows substantial spread: tough positions take longer, easy ones
+            are dispatched quickly. A bot tends to respond with machine-like
+            regularity. If the standard deviation of move times is small relative
+            to the mean (score&nbsp;&gt; 0.8) the risk algorithm assigns additional
+            weight, with a larger penalty once the score exceeds&nbsp;0.9. This
+            timing factor is ignored for <em>bullet</em> (≤60&nbsp;seconds base)
+            games, and the very first opening moves, where lightning-fast
+            responses are expected.
+        </p>
+      </div>
+    </div>
+
     <!-- FAQ -->
     <div class="col-12">
       <div class="about-card">
