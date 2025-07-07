@@ -625,6 +625,16 @@ class EngineAnalyzer:
             pv1_percentage = (pv1_count / total_analyzed) * 100 if total_analyzed > 0 else 0
             pv2_percentage = (pv2_count / total_analyzed) * 100 if total_analyzed > 0 else 0
             pv3_percentage = (pv3_count / total_analyzed) * 100 if total_analyzed > 0 else 0
+
+            # Opening moves count (within theory according to Lichess explorer)
+            opening_move_count = 0
+            for mv in moves:
+                opening_data = mv.get('opening_analysis', {})
+                if opening_data.get('in_theory', False):
+                    opening_move_count += 1
+                # Stop counting once out of opening theory window
+                if len(mv.get('move', '')) > 0 and not opening_data.get('in_theory', False):
+                    break
             
             # Timing metrics
             move_times = []
@@ -655,9 +665,16 @@ class EngineAnalyzer:
                     'pv1_percentage': pv1_percentage,
                     'pv2_percentage': pv2_percentage,
                     'pv3_percentage': pv3_percentage,
-                    'total_analyzed': total_analyzed
+                    'total_analyzed': total_analyzed,
+                    'pv1_count': pv1_count,
+                    'pv2_count': pv2_count,
+                    'pv3_count': pv3_count,
+                    'pv1_3_count': pv3_count  # alias
                 },
-                'temporal_metrics': timing_metrics
+                'temporal_metrics': timing_metrics,
+                'opening_metrics_player': {
+                    'opening_move_count': opening_move_count
+                }
             }
             
         except Exception as e:

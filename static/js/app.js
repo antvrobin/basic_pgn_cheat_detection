@@ -258,6 +258,10 @@ class ChessAnalysisApp {
                     <div class="metric-value">${metrics.total_moves || 0}</div>
                     <div class="metric-label">Total Moves</div>
                 </div>
+                <div class="metric-card">
+                    <div class="metric-value">${metrics.opening_move_count || 0}</div>
+                    <div class="metric-label">Opening Moves</div>
+                </div>
             </div>
             
             <div class="insights-grid">
@@ -1009,7 +1013,14 @@ class ChessAnalysisApp {
                         <strong>Best Move Rate:</strong> ${(metrics.best_move_rate || 0).toFixed(1)}%<br>
                         <strong>Top-3 Move Rate:</strong> ${(metrics.top3_move_rate || 0).toFixed(1)}%<br>
                         <strong>Engine Correlation:</strong> ${this.getEngineCorrelationLevel(metrics.best_move_rate || 0)}<br>
-                        <strong>Total Moves:</strong> ${metrics.total_moves || 0}
+                        <strong>Total Moves:</strong> ${metrics.total_moves || 0}<br>
+                        <strong>PV-1 / PV-3 Counts:</strong> ${metrics.pv1_count || 0} / ${metrics.pv3_count || 0}
+                    </p>
+                </div>
+                <div class="insight-item">
+                    <h5>📚 Opening Theory</h5>
+                    <p>
+                        <strong>Opening moves in theory:</strong> ${metrics.opening_move_count || 0}
                     </p>
                 </div>
                 <div class="insight-item">

@@ -134,6 +134,9 @@ def analyze_pgn(pgn_content):
                 'total_moves': accuracy.get('total_moves', 0),
                 # Engine matching (rename pv1_percentage -> best_move_rate)
                 'best_move_rate': engine_match.get('pv1_percentage', 0),
+                'pv1_count': engine_match.get('pv1_count', 0),
+                'pv2_count': engine_match.get('pv2_count', 0),
+                'pv3_count': engine_match.get('pv3_count', 0),
                 'top2_match_rate': engine_match.get('pv2_percentage', 0),
                 'top3_match_rate': engine_match.get('pv3_percentage', 0),
                 # Alias for backward compatibility with frontend
@@ -144,7 +147,9 @@ def analyze_pgn(pgn_content):
                 'move_time_std': temporal.get('move_time_std', 0),
                 'move_time_cv': temporal.get('move_time_cv', 0),
                 'total_moves_with_time': temporal.get('total_moves_with_time', 0),
-                'time_consistency_score': temporal.get('time_consistency_score', 0)
+                'time_consistency_score': temporal.get('time_consistency_score', 0),
+                # Opening theory
+                'opening_move_count': raw_metrics.get('opening_metrics_player', {}).get('opening_move_count', 0)
             }
             return flattened
 
