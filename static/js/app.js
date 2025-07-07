@@ -1,4 +1,5 @@
 // Chess Cheat Detection Pro - Complete Application
+// Basic PGN Cheat Detection - Complete Application
 class ChessAnalysisApp {
     constructor() {
         this.currentAnalysis = null;
