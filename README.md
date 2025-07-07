@@ -1,4 +1,4 @@
-# Chess Cheat Detection Pro
+# Basic PGN Cheat Detection
 
 A small Flask application that inspects PGN games for signs of computer assistance.  It runs Stockfish on every position, measures how difficult each move was, looks at the time each player spent, and shows the results as simple charts.
 
