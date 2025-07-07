@@ -64,7 +64,7 @@ Then open <http://localhost:5000>, choose a PGN with clock times, and click “A
 |---------|--------------------|
 | *“Stockfish not found”* | Check `STOCKFISH_PATH` or put the binary next to `app.py`. |
 | Grey charts / no data | The game did not have clock times or analysis crashed; look at the Flask console for tracebacks. |
-| Very slow analysis | Lower `analysis_depth` in `Config`, or disable PCS calculation. |
+| Very slow analysis | Lower `analysis_depth`, or disable PCS calculation. |
 
 ---
 
