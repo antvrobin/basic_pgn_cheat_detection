@@ -15,6 +15,7 @@ import numpy as np
 from typing import Dict, List, Optional, Tuple, Any
 from .complexity_calculator import ComplexityCalculator
 from config import Config
+import logging
 
 class EngineAnalyzer:
     """
@@ -289,13 +290,12 @@ class EngineAnalyzer:
                          board: chess.Board, move: str, move_time: float) -> Dict:
         """Analyze a single position comprehensively."""
         try:
-            # Get engine analysis
+            # Get engine analysis based on the current position (before the move)
             engine_analysis = self._get_engine_analysis(engine, board, move)
             
             # Prepare top moves for PCS calculation
             top_moves_for_pcs = []
             top_moves_data = engine_analysis.get('top_moves', [])
-            print(f"Debug: Top moves data: {top_moves_data}")  # Debug line
             
             for top_move in top_moves_data[:3]:
                 top_moves_for_pcs.append({
@@ -304,21 +304,49 @@ class EngineAnalyzer:
                     'rank': top_move.get('rank', 0)
                 })
             
-            print(f"Debug: PCS input data: {top_moves_for_pcs}")  # Debug line
-            
             # Calculate position complexity using enhanced PCS formula
             complexity_analysis = self.complexity_calculator.calculate_complexity(
                 board, engine_analysis, top_moves_analysis=top_moves_for_pcs
             )
             
-            # Get opening theory data
-            opening_analysis = self._get_opening_analysis(board)
+            # ---------------------------------------------
+            # Opening theory check SHOULD be done on the   
+            # position AFTER the played move, otherwise we
+            # only evaluate the *incoming* position, which
+            # unfairly gives 0 opening moves for the side
+            # about to play (especially Black).            
+            # ---------------------------------------------
+            opening_analysis = {'in_theory': False, 'popularity': 0}
+            try:
+                board_after = board.copy()
+                # Try to parse the move in a robust way (SAN → fallback UCI)
+                played_move = None
+                try:
+                    played_move = board_after.parse_san(move)
+                except (ValueError, AssertionError):
+                    try:
+                        played_move = chess.Move.from_uci(move)
+                        if played_move not in board_after.legal_moves:
+                            played_move = None
+                    except Exception:
+                        played_move = None
+                
+                if played_move and played_move in board_after.legal_moves:
+                    board_after.push(played_move)
+                    opening_analysis = self._get_opening_analysis(board_after)
+                else:
+                    # Fallback to pre-move position (old behaviour)
+                    opening_analysis = self._get_opening_analysis(board)
+            except Exception as e:
+                print(f"Error computing opening_analysis AFTER move: {e}")
+                # Keep default opening_analysis
+                pass
             
             return {
                 'engine_analysis': engine_analysis,
                 'complexity': complexity_analysis,
                 'opening_analysis': opening_analysis,
-                'position_fen': board.fen(),
+                'position_fen': board.fen(),  # Pre-move position (for reference)
                 'legal_moves_count': len(list(board.legal_moves))
             }
             
@@ -490,19 +518,31 @@ class EngineAnalyzer:
             if len(board.move_stack) > self.max_opening_moves:
                 return {'in_theory': False, 'popularity': 0}
             
-            # Get position FEN
-            fen = board.fen().split(' ')[0]  # Only piece positions
+            # Use full FEN (including side-to-move) – required by API
+            fen_full = board.fen()
             
-            # Query Lichess opening explorer
-            url = f"{self.opening_api_url}?fen={fen}"
+            # Build request parameters
+            params = {
+                'variant': 'chess',
+                'fen': fen_full,
+                'speeds': 'blitz,rapid,classical',
+                'modes': 'rated'
+            }
+            url = f"{self.opening_api_url}"
             
-            response = requests.get(url, timeout=5)
+            # Log the request details for debugging
+            logging.debug(f"Opening API request: url={url}, params={params}")
+            
+            response = requests.get(url, params=params, timeout=Config.API_TIMEOUT)
+            logging.debug(f"Opening API response status: {response.status_code}")
+            
             if response.status_code == 200:
                 data = response.json()
+                logging.debug(f"Opening API data: {data}")
                 
                 total_games = data.get('white', 0) + data.get('draws', 0) + data.get('black', 0)
                 
-                if total_games > 0:
+                if total_games >= 1:
                     # Position is in opening theory
                     return {
                         'in_theory': True,
@@ -512,13 +552,18 @@ class EngineAnalyzer:
                         'black_wins': data.get('black', 0),
                         'total_games': total_games
                     }
-            
-            # Add delay to avoid rate limiting
-            time.sleep(self.opening_api_delay)
-            
+                else:
+                    return {'in_theory': False, 'popularity': 0}
+            elif response.status_code == 429:
+                logging.warning("Rate limited by Lichess Explorer – sleeping briefly and retrying once …")
+                time.sleep(self.opening_api_delay * 10)
+                return self._get_opening_analysis(board)  # One retry
+            else:
+                logging.error(f"Opening API request failed: status={response.status_code}, text={response.text[:200]}")
         except Exception as e:
-            print(f"Error getting opening analysis: {e}")
+            logging.error(f"Error getting opening analysis: {e}")
         
+        # Default fallback
         return {'in_theory': False, 'popularity': 0}
     
     def _calculate_game_metrics(self, move_analyses: List[Dict]) -> Dict:

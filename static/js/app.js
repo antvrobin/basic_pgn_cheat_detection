@@ -1002,7 +1002,6 @@ class ChessAnalysisApp {
                     <p>
                         <strong>Accuracy Score:</strong> ${(metrics.accuracy_score || 0).toFixed(1)}%<br>
                         <strong>Average CP Loss:</strong> ${(metrics.avg_centipawn_loss || 0).toFixed(1)}<br>
-                        <strong>Standard Deviation:</strong> ${(metrics.std_centipawn_loss || 0).toFixed(1)}<br>
                         <strong>Blunders:</strong> ${metrics.blunder_count || 0}<br>
                         <strong>Mistakes:</strong> ${metrics.mistake_count || 0}
                     </p>
@@ -1038,7 +1037,8 @@ class ChessAnalysisApp {
                         <strong>Average Move Time:</strong> ${(metrics.avg_move_time || 0).toFixed(1)}s<br>
                         <strong>Timed Moves:</strong> ${playerMoves.filter(m => (m.move_time || 0) > 0).length}<br>
                         <strong>Fastest Move:</strong> ${playerMoves.filter(m => (m.move_time || 0) > 0).length > 0 ? Math.min(...playerMoves.filter(m => (m.move_time || 0) > 0).map(m => m.move_time || 0)).toFixed(1) : '0.0'}s<br>
-                        <strong>Slowest Move:</strong> ${playerMoves.filter(m => (m.move_time || 0) > 0).length > 0 ? Math.max(...playerMoves.filter(m => (m.move_time || 0) > 0).map(m => m.move_time || 0)).toFixed(1) : '0.0'}s
+                        <strong>Slowest Move:</strong> ${playerMoves.filter(m => (m.move_time || 0) > 0).length > 0 ? Math.max(...playerMoves.filter(m => (m.move_time || 0) > 0).map(m => m.move_time || 0)).toFixed(1) : '0.0'}s<br>
+                        <strong>Move Time Std Dev:</strong> ${(metrics.move_time_std || 0).toFixed(1)}s
                     </p>
                 </div>
             </div>

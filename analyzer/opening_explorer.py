@@ -39,12 +39,8 @@ class OpeningExplorer:
             # Convert UCI moves to comma-separated string for API
             moves_string = ','.join(moves)
             
-            # Query the API (try masters first, then lichess if no results)
-            response = self._query_opening_api(moves_string, use_masters=True)
-            
-            if response is None or (response.get('white', 0) + response.get('draws', 0) + response.get('black', 0)) < 5:
-                # Try lichess database if masters has insufficient data
-                response = self._query_opening_api(moves_string, use_masters=False)
+            # Query the Lichess API directly
+            response = self._query_opening_api(moves_string, use_masters=False)
             
             if response:
                 # Check total games in this position
@@ -80,22 +76,21 @@ class OpeningExplorer:
             max_moves = 20 if Config.LITE_MODE else 40
             api_delay = 0.05 if Config.LITE_MODE else 0.1
             
+            # Threshold for considering a position as still within opening theory
+            game_threshold = 10  # Align with is_opening_move
+            
             for i in range(1, min(len(moves) + 1, max_moves)):
                 move_sequence = moves[:i]
                 moves_string = ','.join(move_sequence)
                 
-                # Try masters database first
-                response = self._query_opening_api(moves_string, use_masters=True)
-                
-                if response is None or (response.get('white', 0) + response.get('draws', 0) + response.get('black', 0)) < 5:
-                    # Try lichess database if masters has insufficient data
-                    response = self._query_opening_api(moves_string, use_masters=False)
+                # Query the Lichess database directly
+                response = self._query_opening_api(moves_string, use_masters=False)
                 
                 if response:
                     total_games = response.get('white', 0) + response.get('draws', 0) + response.get('black', 0)
                     
                     # If we have sufficient games, this is still opening theory
-                    if total_games >= 1000:
+                    if total_games >= game_threshold:
                         opening_moves = i
                         logging.debug(f"Move {i} ({move_sequence[-1]}) still in opening theory: {total_games} games")
                     else:
@@ -129,12 +124,8 @@ class OpeningExplorer:
         try:
             moves_string = ','.join(moves)
             
-            # Try masters database first
-            response = self._query_opening_api(moves_string, use_masters=True)
-            
-            if response is None or (response.get('white', 0) + response.get('draws', 0) + response.get('black', 0)) < 5:
-                # Try lichess database if masters has insufficient data
-                response = self._query_opening_api(moves_string, use_masters=False)
+            # Query the Lichess database directly
+            response = self._query_opening_api(moves_string, use_masters=False)
             
             if response:
                 total_games = response.get('white', 0) + response.get('draws', 0) + response.get('black', 0)
