@@ -148,8 +148,6 @@ class MetricsCalculator:
                 'metrics': metrics,
                 'analysis_metadata': {
                     'total_moves_analyzed': len(formatted_move_analyses),
-                    'analysis_depth': Config.DEFAULT_DEPTH,
-                    'complexity_depths': Config.COMPLEXITY_DEPTHS,
                     'timestamp': pd.Timestamp.now().isoformat()
                 }
             }

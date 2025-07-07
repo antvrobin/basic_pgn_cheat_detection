@@ -6,7 +6,7 @@ A small Flask application that inspects PGN games for signs of computer assistan
 
 ## Features
 
-* Stockfish 16 evaluation for every half-move
+* Stockfish 17.1 evaluation for every half-move
 * Position-Complexity Score (PCS) that labels positions as trivial / balanced / critical / chaotic
 * Engine-agreement percentages (best move, top-3)
 * Opening-book check against the public Lichess database

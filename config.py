@@ -30,8 +30,7 @@ class Config:
         )
     
     STOCKFISH_PATH = get_stockfish_path.__func__()  # Get path at startup
-    DEFAULT_DEPTH = 8  # Reduced from 15 for much faster analysis
-    COMPLEXITY_DEPTHS = [5, 8, 10]  # Reduced from [10, 15, 20] for speed
+    # Depth settings are now controlled directly inside the analysis classes
     LITE_MODE = True  # Enable fast analysis mode
     
     # Lichess API configuration
