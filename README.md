@@ -71,14 +71,3 @@ Edit `config.py` to tweak:
 | Large PGNs slow | Increase `move_time_limit` or lower `analysis_depth` in `config.py` |
 
 ---
-
-## 🤝 Contributing
-Pull requests welcome! Please open an issue first to discuss major changes.
-
-1. Fork → create feature branch → commit ➜ open PR.
-2. Follow PEP-8; run `black .`.
-
----
-
-## 📄 License
-MIT – see `LICENSE` for details.
