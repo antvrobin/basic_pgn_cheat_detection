@@ -23,14 +23,17 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="navbar-brand">
+            <div class="navbar-brand" onclick="location.href='/'" style="cursor:pointer">
                 <i class="fas fa-chess-knight"></i>
                 <span>Chess Cheat Detection Pro</span>
             </div>
             <div class="navbar-actions">
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-sun"></i>
-                </button>
+                <a class="nav-link" href="{{ url_for('index') }}">
+                    <i class="fas fa-chart-line"></i> Analysis
+                </a>
+                <a class="nav-link" href="{{ url_for('about') }}">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
             </div>
         </div>
     </nav>

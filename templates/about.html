@@ -1,360 +1,106 @@
 {% extends "base.html" %}
 
-{% block title %}About - Chess Analysis System{% endblock %}
+{% block title %}About • How Our Cheat-Detection Works{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <!-- Header -->
-            <div class="text-center mb-5">
-                <h1 class="display-4 mb-4">
-                    <i class="fas fa-microscope"></i>
-                    Analysis Methodology
-                </h1>
-                <p class="lead">
-                    Comprehensive documentation of our chess cheat detection system
-                </p>
-            </div>
+<section class="hero hero-subpage">
+  <div class="container text-center py-5">
+    <h1 class="display-5 gradient-text mb-3"><i class="fas fa-chess-knight"></i>  Our Methodology</h1>
+    <p class="lead" style="max-width: 720px; margin: 0 auto;">
+      A transparent look at every calculation behind <strong>Chess Cheat Detection Pro</strong> – from Stockfish evaluations to timing forensics. No black boxes, just science.
+    </p>
+  </div>
+</section>
 
-            <!-- Analysis Overview -->
-            <div class="card mb-5">
-                <div class="card-header">
-                    <h3 class="mb-0">
-                        <i class="fas fa-chart-line"></i>
-                        Analysis Overview
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5 style="color: var(--text-primary)"><i class="fas fa-robot"></i> Engine Analysis</h5>
-                            <div class="metric-explanation mb-4">
-                                <p style="color: var(--text-secondary)">We use Stockfish 16 at optimized depths to evaluate each position and move quality.</p>
-                                <ul style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Best Move %:</strong> Percentage of moves matching engine's first choice</li>
-                                    <li><strong style="color: var(--text-primary)">Top-3 Moves %:</strong> Percentage of moves in engine's top 3 recommendations</li>
-                                    <li><strong style="color: var(--text-primary)">Average Centipawn Loss:</strong> Lower values indicate better move quality</li>
-                                    <li><strong style="color: var(--text-primary)">Blunder Rate:</strong> Frequency of moves losing 100+ centipawns</li>
-                                </ul>
-                            </div>
-
-                            <h5 style="color: var(--text-primary)"><i class="fas fa-brain"></i> Complexity Analysis</h5>
-                            <div class="metric-explanation mb-4">
-                                <p style="color: var(--text-secondary)">Position complexity based on multiple factors from chess research:</p>
-                                <ul style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Move Rank Penalty:</strong> Distance from optimal move</li>
-                                    <li><strong style="color: var(--text-primary)">Evaluation Stability:</strong> Consistency across search depths</li>
-                                    <li><strong style="color: var(--text-primary)">Choice Entropy:</strong> Similarity of top move evaluations</li>
-                                    <li><strong style="color: var(--text-primary)">Tactical Density:</strong> Presence of forcing moves</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h5 style="color: var(--text-primary)"><i class="fas fa-clock"></i> Timing Analysis</h5>
-                            <div class="metric-explanation mb-4">
-                                <p style="color: var(--text-secondary)">Temporal patterns that may indicate computer assistance:</p>
-                                <ul style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Consistency:</strong> Unnatural uniformity in move times</li>
-                                    <li><strong style="color: var(--text-primary)">Complexity Correlation:</strong> Time spent vs. position difficulty</li>
-                                    <li><strong style="color: var(--text-primary)">Critical Moments:</strong> Time allocation in key positions</li>
-                                    <li><strong style="color: var(--text-primary)">Phase Patterns:</strong> Timing differences across game phases</li>
-                                </ul>
-                            </div>
-
-                            <h5 style="color: var(--text-primary)"><i class="fas fa-shield-alt"></i> Risk Assessment</h5>
-                            <div class="metric-explanation mb-4">
-                                <p style="color: var(--text-secondary)">Comprehensive scoring system combining all analysis factors.</p>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="risk-levels">
-                                            <div class="risk-item">
-                                                <span class="risk-badge very-low">Very Low (0-35)</span>
-                                                <span style="color: var(--text-secondary)">Typical human play patterns</span>
-                                            </div>
-                                            <div class="risk-item">
-                                                <span class="risk-badge low">Low (35-50)</span>
-                                                <span style="color: var(--text-secondary)">Strong but natural performance</span>
-                                            </div>
-                                            <div class="risk-item">
-                                                <span class="risk-badge moderate">Moderate (50-65)</span>
-                                                <span style="color: var(--text-secondary)">Some suspicious indicators</span>
-                                            </div>
-                                            <div class="risk-item">
-                                                <span class="risk-badge high">High (65-80)</span>
-                                                <span style="color: var(--text-secondary)">Multiple red flags present</span>
-                                            </div>
-                                            <div class="risk-item">
-                                                <span class="risk-badge very-high">Very High (80+)</span>
-                                                <span style="color: var(--text-secondary)">Likely engine assistance</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Detailed Methodology -->
-            <div class="card mb-5">
-                <div class="card-header">
-                    <h3 class="mb-0">
-                        <i class="fas fa-cogs"></i>
-                        Technical Implementation
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5 style="color: var(--text-primary)"><i class="fas fa-microchip"></i> Engine Configuration</h5>
-                            <div class="tech-details">
-                                <ul style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Engine:</strong> Stockfish 16 (latest version)</li>
-                                    <li><strong style="color: var(--text-primary)">Analysis Depth:</strong> 8 plies (optimized for speed)</li>
-                                    <li><strong style="color: var(--text-primary)">Hash Size:</strong> 64MB for faster analysis</li>
-                                    <li><strong style="color: var(--text-primary)">Threads:</strong> 2 for parallel processing</li>
-                                    <li><strong style="color: var(--text-primary)">Time Management:</strong> Optimized for consistent results</li>
-                                </ul>
-                            </div>
-
-                            <h5 style="color: var(--text-primary)" class="mt-4"><i class="fas fa-calculator"></i> Complexity Calculation</h5>
-                            <div class="tech-details">
-                                <p style="color: var(--text-secondary)">Our complexity score combines multiple factors:</p>
-                                <ul style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Move Rank Penalty (35%):</strong> How far the move ranks from engine's top choice</li>
-                                    <li><strong style="color: var(--text-primary)">Evaluation Stability (20%):</strong> Changes in evaluation at different depths</li>
-                                    <li><strong style="color: var(--text-primary)">Choice Entropy (20%):</strong> Distribution of move quality among top choices</li>
-                                    <li><strong style="color: var(--text-primary)">Tactical Density (15%):</strong> Presence of forcing moves (checks, captures)</li>
-                                    <li><strong style="color: var(--text-primary)">Strategic Complexity (10%):</strong> Pawn structure, king safety, material balance</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h5 style="color: var(--text-primary)"><i class="fas fa-chart-bar"></i> Statistical Analysis</h5>
-                            <div class="tech-details">
-                                <p style="color: var(--text-secondary)">We calculate comprehensive statistics for pattern recognition:</p>
-                                <ul style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Move Quality Distribution:</strong> Histogram of centipawn losses</li>
-                                    <li><strong style="color: var(--text-primary)">Timing Patterns:</strong> Consistency and correlation analysis</li>
-                                    <li><strong style="color: var(--text-primary)">Performance Correlation:</strong> Accuracy vs. position difficulty</li>
-                                    <li><strong style="color: var(--text-primary)">Opening Theory:</strong> Adherence to known opening principles</li>
-                                </ul>
-                            </div>
-
-                            <h5 style="color: var(--text-primary)" class="mt-4"><i class="fas fa-eye"></i> Visualization</h5>
-                            <div class="tech-details">
-                                <p style="color: var(--text-secondary)">Interactive charts provide insights into:</p>
-                                <ul style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Accuracy Trends:</strong> Performance over time</li>
-                                    <li><strong style="color: var(--text-primary)">Complexity Scatter:</strong> Difficulty vs. performance correlation</li>
-                                    <li><strong style="color: var(--text-primary)">Timing Analysis:</strong> Move time patterns and consistency</li>
-                                    <li><strong style="color: var(--text-primary)">Engine Matching:</strong> Distribution of move rankings</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Interpretation Guide -->
-            <div class="card mb-5">
-                <div class="card-header">
-                    <h3 class="mb-0">
-                        <i class="fas fa-graduation-cap"></i>
-                        Interpretation Guide
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5 style="color: var(--text-primary)"><i class="fas fa-exclamation-triangle"></i> Red Flags</h5>
-                            <div class="alert alert-danger" style="background-color: rgba(220, 53, 69, 0.1); border-color: #dc3545;">
-                                <ul class="mb-0" style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">High Engine Correlation (>80%):</strong> Extremely suspicious</li>
-                                    <li><strong style="color: var(--text-primary)">Consistent Timing (CV < 0.3):</strong> Unnatural uniformity</li>
-                                    <li><strong style="color: var(--text-primary)">Complex Position Excellence:</strong> High accuracy where humans struggle</li>
-                                    <li><strong style="color: var(--text-primary)">Low Blunder Rate:</strong> Fewer than expected mistakes</li>
-                                    <li><strong style="color: var(--text-primary)">Phase Consistency:</strong> No decline in endgame</li>
-                                </ul>
-                            </div>
-
-                            <h5 style="color: var(--text-primary)" class="mt-4"><i class="fas fa-balance-scale"></i> Normal Patterns</h5>
-                            <div class="alert alert-success" style="background-color: rgba(25, 135, 84, 0.1); border-color: #198754;">
-                                <ul class="mb-0" style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Accuracy Decline:</strong> Performance drops with complexity</li>
-                                    <li><strong style="color: var(--text-primary)">Time Correlation:</strong> More time on difficult positions</li>
-                                    <li><strong style="color: var(--text-primary)">Natural Variation:</strong> Inconsistent performance</li>
-                                    <li><strong style="color: var(--text-primary)">Blunder Presence:</strong> Occasional significant mistakes</li>
-                                    <li><strong style="color: var(--text-primary)">Opening Knowledge:</strong> Theory adherence followed by decline</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h5 style="color: var(--text-primary)"><i class="fas fa-lightbulb"></i> Key Insights</h5>
-                            <div class="insight-box">
-                                <h6 style="color: var(--text-primary)">Engine vs. Human Patterns</h6>
-                                <p style="color: var(--text-secondary)">Engines excel in complex tactical positions while maintaining consistent performance. Humans show natural variation and declining accuracy with increased complexity.</p>
-                                
-                                <h6 style="color: var(--text-primary)">Timing Tells</h6>
-                                <p style="color: var(--text-secondary)">Unnatural consistency in move timing, especially in complex positions, can indicate computer assistance. Humans typically spend more time on difficult positions.</p>
-                                
-                                <h6 style="color: var(--text-primary)">Statistical Significance</h6>
-                                <p style="color: var(--text-secondary)">Longer games provide more reliable analysis. Short games or those with few complex positions may not provide sufficient data for accurate assessment.</p>
-                            </div>
-
-                            <h5 style="color: var(--text-primary)" class="mt-4"><i class="fas fa-users"></i> Player Separation</h5>
-                            <div class="insight-box">
-                                <p style="color: var(--text-secondary)">Our system analyzes each player separately to provide individual assessments. This allows for:</p>
-                                <ul style="color: var(--text-secondary)">
-                                    <li><strong style="color: var(--text-primary)">Individual Risk Scores:</strong> Separate evaluation for White and Black</li>
-                                    <li><strong style="color: var(--text-primary)">Comparative Analysis:</strong> Performance differences between players</li>
-                                    <li><strong style="color: var(--text-primary)">Targeted Detection:</strong> Identify if only one player used assistance</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Disclaimers -->
-            <div class="card mb-5">
-                <div class="card-header">
-                    <h3 class="mb-0">
-                        <i class="fas fa-info-circle"></i>
-                        Important Disclaimers
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-warning" style="background-color: rgba(255, 193, 7, 0.1); border-color: #ffc107;">
-                        <h6 style="color: var(--text-primary)"><i class="fas fa-exclamation-triangle"></i> Analysis Limitations</h6>
-                        <ul class="mb-0" style="color: var(--text-secondary)">
-                            <li><strong style="color: var(--text-primary)">Educational Purpose:</strong> This analysis is for educational and analytical purposes only</li>
-                            <li><strong style="color: var(--text-primary)">No Definitive Proof:</strong> No single metric definitively proves cheating - patterns must be considered holistically</li>
-                            <li><strong style="color: var(--text-primary)">Strong Players:</strong> Very strong human players may exhibit some "suspicious" metrics naturally</li>
-                            <li><strong style="color: var(--text-primary)">Data Dependency:</strong> Analysis accuracy depends on game length, time control, and player strength</li>
-                            <li><strong style="color: var(--text-primary)">Expert Interpretation:</strong> Results should be interpreted by experienced chess analysts or arbiters</li>
-                            <li><strong style="color: var(--text-primary)">False Positives:</strong> Exceptional human performance can sometimes trigger detection algorithms</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Technical Details -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="mb-0">
-                        <i class="fas fa-code"></i>
-                        Technical Specifications
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6 style="color: var(--text-primary)">System Requirements</h6>
-                            <ul style="color: var(--text-secondary)">
-                                <li><strong style="color: var(--text-primary)">Engine:</strong> Stockfish 16 or compatible</li>
-                                <li><strong style="color: var(--text-primary)">Memory:</strong> 64MB+ hash table</li>
-                                <li><strong style="color: var(--text-primary)">Processing:</strong> Multi-threaded analysis</li>
-                                <li><strong style="color: var(--text-primary)">Input:</strong> PGN format with timestamps</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h6 style="color: var(--text-primary)">Performance Metrics</h6>
-                            <ul style="color: var(--text-secondary)">
-                                <li><strong style="color: var(--text-primary)">Analysis Time:</strong> 2-4 minutes per game</li>
-                                <li><strong style="color: var(--text-primary)">Accuracy:</strong> Optimized for speed and reliability</li>
-                                <li><strong style="color: var(--text-primary)">Scalability:</strong> Handles games up to 200+ moves</li>
-                                <li><strong style="color: var(--text-primary)">Reliability:</strong> Consistent results across runs</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="container my-5">
+  <div class="row g-4">
+    <!-- Engine Analysis -->
+    <div class="col-md-6">
+      <div class="about-card h-100">
+        <h3><i class="fas fa-robot"></i> Engine Analysis</h3>
+        <p class="small text-muted">Powered by Stockfish 16 – depth 12, 1 thread, 64 MB hash.</p>
+        <p>In plain terms: we ask the strongest open-source engine <em>“what would you do?”</em> on every move.  We then score how closely the human move follows that advice.  A perfect engine match scores 0 centipawn loss (think of 1 centipawn ≈ one-hundredth of a pawn).  The bigger the loss, the worse the move.</p>
+        <ul class="about-list">
+          <li><strong>Accuracy Score (0-100%)</strong> – 100 − (avg centipawn loss ÷ 3).</li>
+          <li><strong>Centipawn Loss</strong> – Δ between played move and engine best.</li>
+          <li><strong>Engine Match Rate</strong> – % of moves equal to engine PV-1.</li>
+          <li><strong>Top-3 Match Rate</strong> – % of moves in PV-1..PV-3.</li>
+        </ul>
+      </div>
     </div>
-</div>
 
-<style>
-.risk-levels {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
+    <!-- Complexity -->
+    <div class="col-md-6">
+      <div class="about-card h-100">
+        <h3><i class="fas fa-brain"></i> Position Complexity (PCS)</h3>
+        <p class="small text-muted">Maia-inspired formula, rescaled to centipawns.</p>
+        <p>Why does complexity matter?  Engines give<span style="white-space:nowrap">&nbsp;‘obvious’</span> answers in quiet positions but humans struggle when many good moves look equal.  Our PCS reflects <strong>how punishing a wrong guess would be</strong>.  Chaotic positions (PCS&nbsp;≥150) mean one slip can cost half a queen; trivial ones (&lt;30) are simple conversions.</p>
+        <ol class="about-list numbered">
+          <li>Run multipv = 3 on current position.</li>
+          <li>Let S₁, S₂, S₃ be evals of PV-1..3 (cp).</li>
+          <li><strong>PCS = max(0, S₂−S₁) + max(0, S₃−S₁)/2</strong>.</li>
+          <li>Category mapping: Trivial &lt;30, Balanced 30-80, Critical 80-150, Chaotic &gt;150.</li>
+        </ol>
+      </div>
+    </div>
 
-.risk-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+    <!-- Opening Theory -->
+    <div class="col-md-6">
+      <div class="about-card h-100">
+        <h3><i class="fas fa-book-open"></i> Opening Theory</h3>
+        <ul class="about-list">
+          <li>Query <code>https://explorer.lichess.ovh/lichess</code> with full <abbr title="Forsyth-Edwards Notation">FEN</abbr>.</li>
+          <li><strong>In-Theory</strong> if ≥ 10 rated blitz/rapid/classical game in database.</li>
+          <li>Opening Move Count = consecutive moves from start flagged In-Theory.</li>
+        </ul>
+      </div>
+    </div>
 
-.risk-badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    min-width: 120px;
-    text-align: center;
-}
+    <!-- Timing Forensics -->
+    <div class="col-md-6">
+      <div class="about-card h-100">
+        <h3><i class="fas fa-stopwatch"></i> Timing Forensics</h3>
+        <ul class="about-list">
+          <li><strong>Mean Move-Time</strong> & σ (std dev) per player.</li>
+          <li><strong>CV</strong> = σ ⁄ mean – uniformity &lt; 0.3 is red-flag.</li>
+          <li>Correlation between PCS and time spent: low correlation may indicate external aid.</li>
+        </ul>
+      </div>
+    </div>
 
-.risk-badge.very-low {
-    background-color: rgba(46, 160, 67, 0.2);
-    color: #2ea043;
-    border: 1px solid #2ea043;
-}
+    <!-- Risk Scoring -->
+    <div class="col-12">
+      <div class="about-card">
+        <h3><i class="fas fa-exclamation-triangle"></i> Composite Risk Score</h3>
+        <p>We combine the above signals into a 0-100 scale:</p>
+        <table class="table table-sm table-borderless mb-3" style="width: max(320px, 100%);">
+          <thead><tr><th>Component</th><th>Weight</th><th>Trigger Example</th></tr></thead>
+          <tbody>
+            <tr><td>Engine Match Rate</td><td>40%</td><td>&gt; 60 % PV-1</td></tr>
+            <tr><td>Accuracy Score</td><td>30%</td><td>&gt; 90 %</td></tr>
+            <tr><td>Average Centipawn Loss</td><td>20%</td><td>&lt; 25 cp</td></tr>
+            <tr><td>Blunder Count</td><td>10%</td><td>0 blunders (&gt; 30 moves)</td></tr>
+          </tbody>
+        </table>
+        <p>Thresholds: <span class="risk-badge risk-very-low">&lt;20 Very Low</span> • <span class="risk-badge risk-low">20-40 Low</span> • <span class="risk-badge risk-moderate">40-60 Moderate</span> • <span class="risk-badge risk-high">60-80 High</span> • <span class="risk-badge risk-very-high">&gt; 80 Very High</span></p>
+      </div>
+    </div>
 
-.risk-badge.low {
-    background-color: rgba(86, 211, 100, 0.2);
-    color: #56d364;
-    border: 1px solid #56d364;
-}
-
-.risk-badge.moderate {
-    background-color: rgba(210, 153, 34, 0.2);
-    color: #d29922;
-    border: 1px solid #d29922;
-}
-
-.risk-badge.high {
-    background-color: rgba(248, 81, 73, 0.2);
-    color: #f85149;
-    border: 1px solid #f85149;
-}
-
-.risk-badge.very-high {
-    background-color: rgba(218, 54, 51, 0.2);
-    color: #da3633;
-    border: 1px solid #da3633;
-}
-
-.tech-details {
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    border-left: 4px solid var(--accent-color);
-}
-
-.insight-box {
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.insight-box h6 {
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-.insight-box p {
-    margin-bottom: 1rem;
-    line-height: 1.5;
-}
-
-.insight-box p:last-child {
-    margin-bottom: 0;
-}
-</style>
+    <!-- FAQ -->
+    <div class="col-12">
+      <div class="about-card">
+        <h3><i class="fas fa-question-circle"></i> FAQ</h3>
+        <details class="mb-2"><summary>Is this definitive proof of cheating?</summary>
+          <p>No. The tool highlights statistical anomalies; final judgment requires human review.</p>
+        </details>
+        <details class="mb-2"><summary>Which games are supported?</summary>
+          <p>Any PGN with move times (exports from Lichess, Chess.com, ICC, etc.).</p>
+        </details>
+        <details class="mb-2"><summary>Is my data stored?</summary>
+          <p>All analysis happens in-memory; nothing is saved once you leave the page.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %} 

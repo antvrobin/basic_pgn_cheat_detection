@@ -27,9 +27,24 @@ class ChessAnalysisApp {
         const uploadForm = document.getElementById('uploadForm');
         uploadForm.addEventListener('submit', (e) => this.handleFileUpload(e));
 
+        // Show selected PGN filename
+        const fileInput = document.getElementById('fileInput');
+        const fileLabelSpan = document.querySelector('.file-input-label span');
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files && fileInput.files.length > 0) {
+                fileLabelSpan.parentElement.classList.add('selected');
+                fileLabelSpan.textContent = fileInput.files[0].name;
+            } else {
+                fileLabelSpan.textContent = 'Choose PGN File';
+                fileLabelSpan.parentElement.classList.remove('selected');
+            }
+        });
+
         // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
-        themeToggle.addEventListener('click', () => this.toggleTheme());
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
 
         // Tab switching
         document.addEventListener('click', (e) => {
@@ -63,8 +78,8 @@ class ChessAnalysisApp {
     }
 
     initializeTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        this.setTheme(savedTheme);
+        // Force dark theme globally (light mode removed)
+        this.setTheme('dark');
     }
 
     toggleTheme() {
@@ -78,9 +93,11 @@ class ChessAnalysisApp {
         localStorage.setItem('theme', theme);
         
         const themeToggle = document.getElementById('themeToggle');
-        themeToggle.innerHTML = theme === 'dark' 
-            ? '<i class="fas fa-sun"></i>' 
-            : '<i class="fas fa-moon"></i>';
+        if (themeToggle) {
+            themeToggle.innerHTML = theme === 'dark' 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+        }
         
         this.setupChartDefaults();
         this.refreshCharts();

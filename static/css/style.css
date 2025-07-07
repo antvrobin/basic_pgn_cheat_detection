@@ -128,6 +128,12 @@ body {
     font-size: 28px;
 }
 
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
 .theme-toggle {
     background: var(--bg-secondary);
     border: 1px solid var(--border-primary);
@@ -323,6 +329,10 @@ body {
     font-size: 18px;
     font-weight: 600;
     color: var(--text-primary);
+}
+
+.file-input-label.selected span {
+    color: var(--accent-primary);
 }
 
 .btn-primary {
@@ -950,4 +960,61 @@ body {
     .move-table td {
         padding: 8px 4px;
     }
+} 
+
+/* --- Custom Overrides (2025-07) --- */
+.navbar .nav-link {
+    color: var(--text-primary);
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+.navbar .nav-link:hover {
+    color: var(--accent-primary);
+}
+
+.about-card table {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border-collapse: collapse;
+}
+.about-card table th,
+.about-card table td {
+    padding: 8px 12px;
+    border-top: 1px solid var(--border-secondary);
+}
+.about-card table th {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+.about-card table tbody tr:nth-child(even) {
+    background: var(--bg-tertiary);
+}
+.about-card table tbody tr:hover {
+    background: var(--bg-hover);
+}
+
+/* Badge colors for risk thresholds */
+.risk-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+}
+.risk-badge.risk-very-low, .risk-badge.risk-low {
+    background: var(--gradient-success);
+}
+.risk-badge.risk-moderate {
+    background: var(--gradient-warning);
+}
+.risk-badge.risk-high, .risk-badge.risk-very-high {
+    background: var(--gradient-danger);
 } 
