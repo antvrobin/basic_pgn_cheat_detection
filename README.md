@@ -1,73 +1,71 @@
 # Chess Cheat Detection Pro
 
-*Analyze PGN games in seconds and visualise positional complexity, engine match rates, timing patterns & more.*
+A small Flask application that inspects PGN games for signs of computer assistance.  It runs Stockfish on every position, measures how difficult each move was, looks at the time each player spent, and shows the results as simple charts.
 
 ---
 
-## ✨ Key Features
+## Features
 
-• **Positional Complexity Score (PCS)** – Maia-inspired metric that classifies each position as *Trivial, Balanced, Critical* or *Chaotic*.<br>
-• **Engine Agreement** – Best-move, Top-3 and Top-5 match rates calculated with Stockfish.<br>
-• **Accuracy & CP-Loss Charts** – Move-by-move accuracy timeline and scatter plots.
-• **Timing Patterns** – Correlate thinking time with PCS to spot suspicious consistency.
-• **Intuitive Dashboards** – Dark-mode, responsive UI powered by Chart.js.
-• **One-click Upload** – Drag & drop any `.pgn`, get instant results.
+* Stockfish 16 evaluation for every half-move
+* Position-Complexity Score (PCS) that labels positions as trivial / balanced / critical / chaotic
+* Engine-agreement percentages (best move, top-3)
+* Opening-book check against the public Lichess database
+* Timing analysis (average time, standard deviation, consistency)
+* All charts rendered in the browser with Chart.js and no external services
 
 ---
 
-## 🚀 Quick Start
+## Quick start
 
-### 1 · Clone & install
+1. Clone the repo and set up a virtual environment (optional but recommended):
 ```bash
-# clone your fork once the remote exists
-git clone https://github.com/<YOU>/pgn_cheat.git
-cd pgn_cheat
-
-# create Python env (recommended)
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# install deps
-pip install -r requirements.txt  # ⇢ created automatically by venv
+$ git clone https://github.com/yourname/pgn_cheat.git
+$ cd pgn_cheat
+$ python -m venv venv
+$ source venv/bin/activate   # on Windows: venv\Scripts\activate
+$ pip install -r requirements.txt
 ```
 
-### 2 · Add Stockfish
-Download a recent Stockfish binary and place the executable in the project root **or** adjust `config.py → STOCKFISH_PATH`.
+2. Download a Stockfish binary that matches your operating system and either
+   * place the executable in the project root, **or**
+   * set the `STOCKFISH_PATH` environment variable.
 
-### 3 · Run the app
+3. Run the web app:
 ```bash
-python app.py
+$ python app.py
 ```
-Open `http://localhost:5000` in your browser → upload a PGN → explore the analysis.
+Then open <http://localhost:5000>, choose a PGN with clock times, and click “Analyze Game”.
 
 ---
 
-## 🧐 Folder Structure
+## Directory layout
 ```
-pgn_cheat/
-├── analyzer/            # backend analysis engine (complexity, engine, metrics …)
-├── static/              # JS, CSS, icons
-├── templates/           # Flask Jinja2 pages
-├── uploads/             # user-uploaded PGNs (auto-created)
-├── app.py               # Flask entry point
-└── README.md            # you’re here
+├── analyzer/      # The analysis code (engine calls, complexity, metrics)
+├── static/        # Front-end assets (JS, CSS)
+├── templates/     # Jinja2 pages rendered by Flask
+├── uploads/       # Temporary storage for uploaded PGN files
+├── app.py         # Flask entry point
+└── config.py      # Small helper with engine and API settings
 ```
 
 ---
 
-## ⚙️ Configuration
-Edit `config.py` to tweak:
-- Engine depth / hash size
-- PCS thresholds
-- Lichess Opening Explorer API delay
+## Configuration tips
+
+* **Engine depth** – default is depth 12 for a good balance of speed and accuracy; change `Config.analysis_depth` if you like.
+* **PCS thresholds** – tweak `ComplexityCalculator._categorise_pcs` if you want different ranges.
+* **Lichess opening API** – rate-limit delays are set in `Config.API_TIMEOUT` and `EngineAnalyzer.opening_api_delay`.
 
 ---
 
-## 🩺 Troubleshooting
-| Issue | Fix |
-|-------|------|
-| *Stockfish not found* | Verify `config.py.STOCKFISH_PATH` or place `stockfish.exe` in root |
-| Blank graphs | Check browser console for JS errors, ensure analysis finished in backend |
-| Large PGNs slow | Increase `move_time_limit` or lower `analysis_depth` in `config.py` |
+## Common problems
+
+| Problem | Likely cause / fix |
+|---------|--------------------|
+| *“Stockfish not found”* | Check `STOCKFISH_PATH` or put the binary next to `app.py`. |
+| Grey charts / no data | The game did not have clock times or analysis crashed; look at the Flask console for tracebacks. |
+| Very slow analysis | Lower `analysis_depth` in `Config`, or disable PCS calculation. |
 
 ---
+
+Released under the MIT licence.  Contributions and bug reports are always welcome.  Enjoy!
