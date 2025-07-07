@@ -635,27 +635,27 @@ class EngineAnalyzer:
             
             # Accuracy metrics
             centipawn_losses = []
-            move_ranks = []
+            accuracies = []  # store per-move accuracy values (0-100)
             blunder_count = 0
             mistake_count = 0
-            
+
             for move in valid_moves:
                 engine_data = move.get('engine_analysis', {})
                 cp_loss = engine_data.get('centipawn_loss', 0)
-                move_rank = engine_data.get('move_rank', 0)
-                
                 centipawn_losses.append(cp_loss)
-                if move_rank > 0:
-                    move_ranks.append(move_rank)
-                
+
+                # Per-move accuracy mirrors frontend formula
+                move_acc = max(0.0, 100.0 - (cp_loss / 3.0))
+                accuracies.append(move_acc)
+
                 # Count blunders and mistakes
                 if cp_loss >= 300:
                     blunder_count += 1
                 elif cp_loss >= 100:
                     mistake_count += 1
-            
+
             avg_cp_loss = np.mean(centipawn_losses) if centipawn_losses else 0
-            accuracy_score = max(0, 100 - (avg_cp_loss / 3.0))  # Adjusted formula
+            accuracy_score = np.mean(accuracies) if accuracies else 0
             
             # Engine matching metrics
             pv1_count = sum(1 for move in valid_moves 

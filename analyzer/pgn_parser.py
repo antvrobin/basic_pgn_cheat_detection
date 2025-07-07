@@ -149,38 +149,38 @@ class PGNParser:
     
     def _calculate_move_time(self, moves_data: List[Dict], current_clock: Optional[float], move_num: int) -> Optional[float]:
         """
-        Calculate the time spent on the current move.
-        
-        Args:
-            moves_data: Previously processed moves
-            current_clock: Current clock time
-            move_num: Current move number
-            
-        Returns:
-            Time spent on this move in seconds
+        Calculate the time spent on the current move, taking increments into account.
         """
         if current_clock is None:
             return None
-            
-        # For the first move, we can't calculate move time
+
+        # For the first full ply for each player we don't know the previous clock yet
         if move_num <= 2:
             return None
-            
+
+        # Determine the increment from the TimeControl header once
+        time_control = self.headers.get('TimeControl', '')
+        inc_seconds = 0.0
+        if '+' in time_control:
+            try:
+                inc_seconds = float(time_control.split('+', 1)[1])
+            except Exception:
+                inc_seconds = 0.0
+
         # Find the previous move by the same player
         same_player_moves = [m for m in moves_data if m['player'] == ('white' if move_num % 2 == 1 else 'black')]
-        
         if not same_player_moves:
             return None
-            
+
         last_move = same_player_moves[-1]
         if last_move['clock_time'] is None:
             return None
-            
-        # Move time = previous clock time - current clock time
-        move_time = last_move['clock_time'] - current_clock
-        
-        # Ensure move time is positive (sometimes there are inconsistencies)
-        return max(0, move_time) if move_time is not None else None
+
+        raw_diff = last_move['clock_time'] - current_clock
+        if raw_diff < 0 and inc_seconds > 0:
+            raw_diff += inc_seconds
+
+        return max(0, raw_diff)
     
     def _safe_int(self, value: str) -> int:
         """
