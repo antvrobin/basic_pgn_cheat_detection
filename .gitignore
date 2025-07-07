@@ -1,0 +1,31 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual env
+venv/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Uploaded PGNs
+uploads/*.pgn
+
+# Node (if used for frontend build)
+node_modules/
+
+# Environment & secrets
+.env
+
+# Generated static builds
+static/dist/ 

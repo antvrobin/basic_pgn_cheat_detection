@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error - Chess Cheat Detection System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 text-center">
+        <div class="error-page">
+            <div class="error-code mb-4">
+                <i class="fas fa-exclamation-triangle fa-5x text-danger mb-3"></i>
+                <h1 class="display-1 text-muted">500</h1>
+            </div>
+            <h2 class="mb-3">Internal Server Error</h2>
+            <p class="lead text-muted mb-4">
+                Something went wrong with the analysis engine. This might be a temporary issue.
+            </p>
+            <div class="alert alert-warning" role="alert">
+                <h6 class="alert-heading">Possible causes:</h6>
+                <ul class="mb-0 text-start">
+                    <li>Stockfish engine not properly configured</li>
+                    <li>Invalid PGN file format</li>
+                    <li>Network issues with opening database API</li>
+                    <li>Insufficient system resources</li>
+                </ul>
+            </div>
+            <div class="d-grid gap-2 d-md-block">
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home"></i>
+                    Try Again
+                </a>
+                <a href="javascript:history.back()" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-arrow-left"></i>
+                    Go Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

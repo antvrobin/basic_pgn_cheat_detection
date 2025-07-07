@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Chess Cheat Detection System{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Chart.js - Latest stable version -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-chess-king"></i>
+                Chess Cheat Detection
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">
+                            <i class="fas fa-chart-line"></i> Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">
+                            <i class="fas fa-info-circle"></i> About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding-top: 80px;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5>
+                        <i class="fas fa-chess-king text-accent"></i>
+                        Chess Cheat Detection System
+                    </h5>
+                    <p class="mb-3">
+                        Advanced multi-dimensional analysis system for detecting suspicious patterns in chess games. 
+                        Combines Stockfish engine evaluation, positional complexity assessment, temporal analysis, 
+                        and behavioral pattern recognition to provide comprehensive cheat detection capabilities.
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-cogs"></i> Key Features</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-robot"></i> Stockfish 16 Engine Analysis</li>
+                                <li><i class="fas fa-brain"></i> Complexity Scoring Algorithm</li>
+                                <li><i class="fas fa-clock"></i> Temporal Pattern Detection</li>
+                                <li><i class="fas fa-chart-line"></i> Statistical Anomaly Detection</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-shield-alt"></i> Analysis Metrics</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-bullseye"></i> Move Accuracy Assessment</li>
+                                <li><i class="fas fa-chess-pawn"></i> Opening Theory Validation</li>
+                                <li><i class="fas fa-balance-scale"></i> Risk Score Calculation</li>
+                                <li><i class="fas fa-eye"></i> Behavioral Pattern Analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h6><i class="fas fa-info-circle"></i> Important Notes</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-graduation-cap"></i> Educational purposes only</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> No single metric is conclusive</li>
+                        <li><i class="fas fa-user-check"></i> Requires expert interpretation</li>
+                        <li><i class="fas fa-chess"></i> Best with 20+ move games</li>
+                        <li><i class="fas fa-clock"></i> Requires timing data</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6><i class="fas fa-code"></i> Technical Details</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fab fa-python"></i> Python & Flask Backend</li>
+                        <li><i class="fas fa-chess-knight"></i> Stockfish Chess Engine</li>
+                        <li><i class="fab fa-js-square"></i> Chart.js Visualizations</li>
+                        <li><i class="fab fa-bootstrap"></i> Bootstrap 5 UI Framework</li>
+                        <li><i class="fas fa-database"></i> Lichess Opening Database</li>
+                    </ul>
+                    
+                    <div class="mt-3">
+                        <a href="https://github.com/your-repo" class="btn btn-secondary btn-sm" target="_blank">
+                            <i class="fab fa-github"></i> View Source
+                        </a>
+                        <a href="#top" class="btn btn-secondary btn-sm" onclick="scrollToTop()">
+                            <i class="fas fa-arrow-up"></i> Back to Top
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">
+                        <small>
+                            &copy; 2024 Chess Cheat Detection System. 
+                            Open source project for educational and research purposes.
+                        </small>
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <small>
+                            <i class="fas fa-heart text-danger"></i> Built for the chess community
+                            <span class="text-muted mx-2">|</span>
+                            <i class="fas fa-shield-alt"></i> Fair play enforcement
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    
+    <!-- Navigation and Utility Scripts -->
+    <script>
+        // Smooth scrolling utility functions
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Update navbar on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backdropFilter = 'blur(15px)';
+                navbar.style.background = 'rgba(13, 17, 23, 0.98)';
+            } else {
+                navbar.style.backdropFilter = 'blur(10px)';
+                navbar.style.background = 'rgba(13, 17, 23, 0.95)';
+            }
+        });
+        
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

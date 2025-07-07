@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Cheat Detection Pro</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js - Load before everything -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <i class="fas fa-chess-knight"></i>
+                <span>Chess Cheat Detection Pro</span>
+            </div>
+            <div class="navbar-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Advanced Chess Analysis</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Professional-grade cheat detection using statistical analysis, 
+                    engine correlation, and behavioral pattern recognition
+                </p>
+                <div class="hero-features">
+                    <div class="feature-tag">
+                        <i class="fas fa-robot"></i>
+                        <span>Engine Analysis</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Statistical Modeling</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-brain"></i>
+                        <span>Pattern Recognition</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-card">
+                <div class="upload-header">
+                    <h2><i class="fas fa-upload"></i> Upload PGN File</h2>
+                    <p>Upload a chess game in PGN format with timing data for comprehensive analysis</p>
+                </div>
+                
+                <form id="uploadForm" class="upload-form">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="fileInput" accept=".pgn,.txt" required>
+                        <label for="fileInput" class="file-input-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Choose PGN File</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" id="analyzeBtn">
+                        <i class="fas fa-microscope"></i>
+                        Analyze Game
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Loading Section -->
+        <section id="loadingSection" class="loading-section hidden">
+            <div class="loading-card">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+                <h3>Analyzing Game...</h3>
+                <p>Running deep engine analysis and pattern detection</p>
+                <div class="loading-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden">
+            <!-- Game Info -->
+            <div id="gameInfo" class="game-info"></div>
+
+            <!-- Player Selection -->
+            <div id="playerSelection" class="player-selection"></div>
+
+            <!-- Executive Summary -->
+            <div id="executiveSummary" class="executive-summary"></div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> Visual Analysis</h2>
+                    <p>Comprehensive data visualization and pattern analysis</p>
+                </div>
+
+                <div class="chart-tabs">
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="accuracy">
+                            <i class="fas fa-bullseye"></i>
+                            Accuracy Timeline
+                        </button>
+                        <button class="tab-btn" data-tab="complexity">
+                            <i class="fas fa-brain"></i>
+                            Position Complexity
+                        </button>
+                        <button class="tab-btn" data-tab="timing">
+                            <i class="fas fa-clock"></i>
+                            Timing Patterns
+                        </button>
+                        <button class="tab-btn" data-tab="engine">
+                            <i class="fas fa-robot"></i>
+                            Engine Correlation
+                        </button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-panel active" id="accuracyTab">
+                            <div class="chart-wrapper">
+                                <canvas id="accuracyChart"></canvas>
+                            </div>
+                            <div class="chart-insights" id="accuracyInsights"></div>
+                        </div>
+
+                        <div class="tab-panel" id="complexityTab">
+                            <div class="chart-wrapper">
+                                <canvas id="complexityChart"></canvas>
+                            </div>
+                            <div class="chart-insights" id="complexityInsights"></div>
+                        </div>
+
+                        <div class="tab-panel" id="timingTab">
+                            <div class="chart-wrapper">
+                                <canvas id="timingChart"></canvas>
+                            </div>
+                            <div class="chart-insights" id="timingInsights"></div>
+                        </div>
+
+                        <div class="tab-panel" id="engineTab">
+                            <div class="chart-wrapper">
+                                <canvas id="engineChart"></canvas>
+                            </div>
+                            <div class="chart-insights" id="engineInsights"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Analysis -->
+            <div id="detailedAnalysis" class="detailed-analysis"></div>
+
+            <!-- Move Analysis -->
+            <div id="moveAnalysis" class="move-analysis"></div>
+        </section>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Error</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html> 
