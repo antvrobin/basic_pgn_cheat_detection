@@ -72,9 +72,8 @@ class OpeningExplorer:
         
         try:
             # Check moves incrementally until we find one not in database
-            # In lite mode, check fewer moves and use faster API calls
-            max_moves = 20 if Config.LITE_MODE else 40
-            api_delay = 0.05 if Config.LITE_MODE else 0.1
+            max_moves = 40
+            api_delay = 0.1
             
             # Threshold for considering a position as still within opening theory
             game_threshold = 10  # Align with is_opening_move

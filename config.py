@@ -31,14 +31,9 @@ class Config:
     
     STOCKFISH_PATH = get_stockfish_path.__func__()  # Get path at startup
     # Depth settings are now controlled directly inside the analysis classes
-    LITE_MODE = True  # Enable fast analysis mode
     
     # Lichess API configuration
     API_TIMEOUT = 10
-    
-    # Analysis settings
-    MAX_OPENING_MOVES = 15  # Maximum moves to consider as opening
-    MIN_GAME_LENGTH = 10    # Minimum game length for analysis
     
     # File upload settings
     UPLOAD_FOLDER = 'uploads'

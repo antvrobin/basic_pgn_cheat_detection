@@ -101,7 +101,7 @@ class MetricsCalculator:
                         }
                         
                         complexity_result = self.complexity_calculator.calculate_complexity(
-                            board, engine_analysis, lite_mode=Config.LITE_MODE
+                            board, engine_analysis
                         )
                     
                     # Format the analysis
