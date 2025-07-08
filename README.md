@@ -52,7 +52,7 @@ Then open <http://localhost:5000>, choose a PGN with clock times, and click “A
 
 ## Configuration tips
 
-* **Engine depth** – default is depth 12 for a good balance of speed and accuracy; change `Config.analysis_depth` if you like.
+* **Engine depth** – default is depth 12 for a good balance of speed and accuracy.
 * **PCS thresholds** – tweak `ComplexityCalculator._categorise_pcs` if you want different ranges.
 * **Lichess opening API** – rate-limit delays are set in `Config.API_TIMEOUT` and `EngineAnalyzer.opening_api_delay`.
 
